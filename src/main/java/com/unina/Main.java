@@ -1,4 +1,4 @@
-package reasoner;
+package com.unina;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
