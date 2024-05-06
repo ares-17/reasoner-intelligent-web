@@ -1,0 +1,400 @@
+<?xml version="1.0"?>
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="htttp://myOntology.com"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     ontologyIRI="htttp://myOntology.com">
+    <Prefix name="" IRI="http://www.semanticweb.org/chris/ontologies/2024/2/untitled-ontology-38/"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Declaration>
+        <Class IRI="#A"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#B"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#C"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#D"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#E"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#F"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#G"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#H"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#I"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#L"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#M"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#N"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#O"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#P"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Q"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#R"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#S"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#T"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#U"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#V"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#r1"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#r2"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#r3"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#r4"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#r5"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#x"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#y"/>
+    </Declaration>
+    <SubClassOf>
+        <Class IRI="#F"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#D"/>
+            <Class IRI="#E"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#r1"/>
+                <ObjectIntersectionOf>
+                    <Class IRI="#A"/>
+                    <Class IRI="#B"/>
+                    <Class IRI="#C"/>
+                </ObjectIntersectionOf>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#r3"/>
+                <ObjectIntersectionOf>
+                    <Class IRI="#I"/>
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty IRI="#r4"/>
+                        <Class IRI="#L"/>
+                    </ObjectSomeValuesFrom>
+                </ObjectIntersectionOf>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#r5"/>
+                <ObjectSomeValuesFrom>
+                    <ObjectProperty IRI="#r2"/>
+                    <ObjectIntersectionOf>
+                        <Class IRI="#D"/>
+                        <Class IRI="#E"/>
+                    </ObjectIntersectionOf>
+                </ObjectSomeValuesFrom>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#H"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#r3"/>
+            <ObjectIntersectionOf>
+                <Class IRI="#A"/>
+                <Class IRI="#B"/>
+            </ObjectIntersectionOf>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Q"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#R"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#r4"/>
+            <ObjectIntersectionOf>
+                <Class IRI="#A"/>
+                <Class IRI="#B"/>
+                <Class IRI="#G"/>
+            </ObjectIntersectionOf>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#S"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#r4"/>
+            <Class IRI="#Q"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <ObjectIntersectionOf>
+            <Class IRI="#D"/>
+            <Class IRI="#E"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#r1"/>
+                <ObjectIntersectionOf>
+                    <Class IRI="#A"/>
+                    <Class IRI="#B"/>
+                    <Class IRI="#C"/>
+                </ObjectIntersectionOf>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#r3"/>
+                <ObjectIntersectionOf>
+                    <Class IRI="#I"/>
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty IRI="#r4"/>
+                        <Class IRI="#L"/>
+                    </ObjectSomeValuesFrom>
+                </ObjectIntersectionOf>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#r5"/>
+                <ObjectSomeValuesFrom>
+                    <ObjectProperty IRI="#r2"/>
+                    <ObjectIntersectionOf>
+                        <Class IRI="#D"/>
+                        <Class IRI="#E"/>
+                    </ObjectIntersectionOf>
+                </ObjectSomeValuesFrom>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+        <Class IRI="#A"/>
+    </SubClassOf>
+    <SubClassOf>
+        <ObjectIntersectionOf>
+            <Class IRI="#M"/>
+            <Class IRI="#N"/>
+        </ObjectIntersectionOf>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#r3"/>
+            <Class IRI="#O"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <ObjectIntersectionOf>
+            <ObjectOneOf>
+                <NamedIndividual IRI="#x"/>
+            </ObjectOneOf>
+            <ObjectOneOf>
+                <NamedIndividual IRI="#y"/>
+            </ObjectOneOf>
+        </ObjectIntersectionOf>
+        <Class IRI="#R"/>
+    </SubClassOf>
+    <SubClassOf>
+        <ObjectOneOf>
+            <NamedIndividual IRI="#x"/>
+        </ObjectOneOf>
+        <Class IRI="#H"/>
+    </SubClassOf>
+    <SubClassOf>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#r1"/>
+            <ObjectIntersectionOf>
+                <Class IRI="#G"/>
+                <Class IRI="#M"/>
+                <Class IRI="#N"/>
+                <Class IRI="#O"/>
+                <ObjectSomeValuesFrom>
+                    <ObjectProperty IRI="#r2"/>
+                    <Class IRI="#P"/>
+                </ObjectSomeValuesFrom>
+            </ObjectIntersectionOf>
+        </ObjectSomeValuesFrom>
+        <Class IRI="#S"/>
+    </SubClassOf>
+    <SubClassOf>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#r1"/>
+            <ObjectIntersectionOf>
+                <Class IRI="#U"/>
+                <Class IRI="#V"/>
+            </ObjectIntersectionOf>
+        </ObjectSomeValuesFrom>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#r2"/>
+            <Class IRI="#T"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#r1"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#r2"/>
+                <ObjectIntersectionOf>
+                    <Class IRI="#A"/>
+                    <Class IRI="#B"/>
+                </ObjectIntersectionOf>
+            </ObjectSomeValuesFrom>
+        </ObjectSomeValuesFrom>
+        <Class IRI="#E"/>
+    </SubClassOf>
+    <SubClassOf>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#r2"/>
+            <Class IRI="#T"/>
+        </ObjectSomeValuesFrom>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#r3"/>
+            <Class IRI="#T"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#r2"/>
+            <ObjectIntersectionOf>
+                <Class IRI="#C"/>
+                <Class IRI="#D"/>
+            </ObjectIntersectionOf>
+        </ObjectSomeValuesFrom>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#r1"/>
+            <ObjectIntersectionOf>
+                <Class IRI="#G"/>
+                <Class IRI="#M"/>
+                <Class IRI="#N"/>
+                <Class IRI="#O"/>
+                <ObjectSomeValuesFrom>
+                    <ObjectProperty IRI="#r2"/>
+                    <Class IRI="#P"/>
+                </ObjectSomeValuesFrom>
+            </ObjectIntersectionOf>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#r2"/>
+            <ObjectIntersectionOf>
+                <Class IRI="#C"/>
+                <Class IRI="#D"/>
+            </ObjectIntersectionOf>
+        </ObjectSomeValuesFrom>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#r4"/>
+            <ObjectIntersectionOf>
+                <Class IRI="#E"/>
+                <Class IRI="#F"/>
+            </ObjectIntersectionOf>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#r3"/>
+            <Class IRI="#O"/>
+        </ObjectSomeValuesFrom>
+        <ObjectIntersectionOf>
+            <Class IRI="#I"/>
+            <Class IRI="#P"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#r4"/>
+                <Class IRI="#L"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </SubClassOf>
+    <SubClassOf>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#r3"/>
+            <ObjectIntersectionOf>
+                <Class IRI="#A"/>
+                <Class IRI="#B"/>
+            </ObjectIntersectionOf>
+        </ObjectSomeValuesFrom>
+        <ObjectIntersectionOf>
+            <Class IRI="#I"/>
+            <Class IRI="#L"/>
+        </ObjectIntersectionOf>
+    </SubClassOf>
+    <SubClassOf>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#r4"/>
+            <Class IRI="#L"/>
+        </ObjectSomeValuesFrom>
+        <Class IRI="#B"/>
+    </SubClassOf>
+    <SubClassOf>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#r4"/>
+            <ObjectIntersectionOf>
+                <Class IRI="#A"/>
+                <Class IRI="#B"/>
+            </ObjectIntersectionOf>
+        </ObjectSomeValuesFrom>
+        <Class IRI="#O"/>
+    </SubClassOf>
+    <SubClassOf>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#r5"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#r2"/>
+                <ObjectIntersectionOf>
+                    <Class IRI="#D"/>
+                    <Class IRI="#E"/>
+                </ObjectIntersectionOf>
+            </ObjectSomeValuesFrom>
+        </ObjectSomeValuesFrom>
+        <ObjectIntersectionOf>
+            <Class IRI="#O"/>
+            <Class IRI="#P"/>
+        </ObjectIntersectionOf>
+    </SubClassOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#r1"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#r2"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#r3"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#r4"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#r5"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 4.5.26.2023-07-17T20:34:13Z) https://github.com/owlcs/owlapi -->
+
