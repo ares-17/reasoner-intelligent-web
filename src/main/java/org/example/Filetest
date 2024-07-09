@@ -1,0 +1,334 @@
+<?xml version="1.0"?>
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="htttp://myOntology.com"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     ontologyIRI="htttp://myOntology.com">
+    <Prefix name="" IRI="http://www.semanticweb.org/chris/ontologies/2024/2/untitled-ontology-38/"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Declaration>
+        <Class IRI="#Acquatico"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#EssereVivente"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Invertebrato"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Animale"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Mammifero"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#caccia"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#haCaratteristica"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Leone"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Aquila"/>
+    </Declaration>
+    <SubClassOf>
+        <Class IRI="#Pesce"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Mammifero"/>
+            <Class IRI="#Uccello"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#haHabitat"/>
+                <ObjectIntersectionOf>
+                    <Class IRI="#Acquatico"/>
+                    <Class IRI="#EssereVivente"/>
+                    <Class IRI="#Invertebrato"/>
+                </ObjectIntersectionOf>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#haCaratteristica"/>
+                <ObjectIntersectionOf>
+                    <Class IRI="#Invertebrato"/>
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty IRI="#haComportamento"/>
+                        <Class IRI="#Molluschi"/>
+                    </ObjectSomeValuesFrom>
+                </ObjectIntersectionOf>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#haParticolaritaFisica"/>
+                <ObjectSomeValuesFrom>
+                    <ObjectProperty IRI="#caccia"/>
+                    <ObjectIntersectionOf>
+                        <Class IRI="#Mammifero"/>
+                        <Class IRI="#Uccello"/>
+                    </ObjectIntersectionOf>
+                </ObjectSomeValuesFrom>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Rettili"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#haCaratteristica"/>
+            <ObjectIntersectionOf>
+                <Class IRI="#Acquatico"/>
+                <Class IRI="#EssereVivente"/>
+            </ObjectIntersectionOf>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Cnidari"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Platelminti"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#haComportamento"/>
+            <ObjectIntersectionOf>
+                <Class IRI="#Acquatico"/>
+                <Class IRI="#EssereVivente"/>
+                <Class IRI="#Anfibio"/>
+            </ObjectIntersectionOf>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Nematomorfi"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#haComportamento"/>
+            <Class IRI="#Cnidari"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <ObjectIntersectionOf>
+            <Class IRI="#Mammifero"/>
+            <Class IRI="#Uccello"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#haHabitat"/>
+                <ObjectIntersectionOf>
+                    <Class IRI="#Acquatico"/>
+                    <Class IRI="#EssereVivente"/>
+                    <Class IRI="#Invertebrato"/>
+                </ObjectIntersectionOf>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#haCaratteristica"/>
+                <ObjectIntersectionOf>
+                    <Class IRI="#Invertebrato"/>
+                    <ObjectSomeValuesFrom>
+                        <ObjectProperty IRI="#haComportamento"/>
+                        <Class IRI="#Molluschi"/>
+                    </ObjectSomeValuesFrom>
+                </ObjectIntersectionOf>
+            </ObjectSomeValuesFrom>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#haParticolaritaFisica"/>
+                <ObjectSomeValuesFrom>
+                    <ObjectProperty IRI="#caccia"/>
+                    <ObjectIntersectionOf>
+                        <Class IRI="#Mammifero"/>
+                        <Class IRI="#Uccello"/>
+                    </ObjectIntersectionOf>
+                </ObjectSomeValuesFrom>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+        <Class IRI="#Acquatico"/>
+    </SubClassOf>
+    <SubClassOf>
+        <ObjectIntersectionOf>
+            <Class IRI="#Animale"/>
+            <Class IRI="#Mammifero"/>
+        </ObjectIntersectionOf>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#haCaratteristica"/>
+            <Class IRI="#Echinodermi"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <ObjectIntersectionOf>
+            <ObjectOneOf>
+                <NamedIndividual IRI="#Leone"/>
+            </ObjectOneOf>
+            <ObjectOneOf>
+                <NamedIndividual IRI="#Aquila"/>
+            </ObjectOneOf>
+        </ObjectIntersectionOf>
+        <Class IRI="#Platelminti"/>
+    </SubClassOf>
+    <SubClassOf>
+        <ObjectOneOf>
+            <NamedIndividual IRI="#Leone"/>
+        </ObjectOneOf>
+        <Class IRI="#Rettili"/>
+    </SubClassOf>
+    <SubClassOf>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#haHabitat"/>
+            <ObjectIntersectionOf>
+                <Class IRI="#Anfibio"/>
+                <Class IRI="#Animale"/>
+                <Class IRI="#Mammifero"/>
+                <Class IRI="#Echinodermi"/>
+                <ObjectSomeValuesFrom>
+                    <ObjectProperty IRI="#caccia"/>
+                    <Class IRI="#Poriferi"/>
+                </ObjectSomeValuesFrom>
+            </ObjectIntersectionOf>
+        </ObjectSomeValuesFrom>
+        <Class IRI="#Nematomorfi"/>
+    </SubClassOf>
+    <SubClassOf>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#haHabitat"/>
+            <ObjectIntersectionOf>
+                <Class IRI="#Tardigradi"/>
+                <Class IRI="#Onicofori"/>
+            </ObjectIntersectionOf>
+        </ObjectSomeValuesFrom>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#caccia"/>
+            <Class IRI="#Rotiferi"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#haHabitat"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#caccia"/>
+                <ObjectIntersectionOf>
+                    <Class IRI="#Acquatico"/>
+                    <Class IRI="#EssereVivente"/>
+                </ObjectIntersectionOf>
+            </ObjectSomeValuesFrom>
+        </ObjectSomeValuesFrom>
+        <Class IRI="#Uccello"/>
+    </SubClassOf>
+    <SubClassOf>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#caccia"/>
+            <Class IRI="#Rotiferi"/>
+        </ObjectSomeValuesFrom>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#haCaratteristica"/>
+            <Class IRI="#Rotiferi"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#caccia"/>
+            <ObjectIntersectionOf>
+                <Class IRI="#Invertebrato"/>
+                <Class IRI="#Mammifero"/>
+            </ObjectIntersectionOf>
+        </ObjectSomeValuesFrom>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#haHabitat"/>
+            <ObjectIntersectionOf>
+                <Class IRI="#Anfibio"/>
+                <Class IRI="#Animale"/>
+                <Class IRI="#Mammifero"/>
+                <Class IRI="#Echinodermi"/>
+                <ObjectSomeValuesFrom>
+                    <ObjectProperty IRI="#caccia"/>
+                    <Class IRI="#Poriferi"/>
+                </ObjectSomeValuesFrom>
+            </ObjectIntersectionOf>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#caccia"/>
+            <ObjectIntersectionOf>
+                <Class IRI="#Invertebrato"/>
+                <Class IRI="#Mammifero"/>
+            </ObjectIntersectionOf>
+        </ObjectSomeValuesFrom>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#haComportamento"/>
+            <ObjectIntersectionOf>
+                <Class IRI="#Uccello"/>
+                <Class IRI="#Pesce"/>
+            </ObjectIntersectionOf>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#haCaratteristica"/>
+            <Class IRI="#Echinodermi"/>
+        </ObjectSomeValuesFrom>
+        <ObjectIntersectionOf>
+            <Class IRI="#Invertebrato"/>
+            <Class IRI="#Poriferi"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#haComportamento"/>
+                <Class IRI="#Molluschi"/>
+            </ObjectSomeValuesFrom>
+        </ObjectIntersectionOf>
+    </SubClassOf>
+    <SubClassOf>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#haCaratteristica"/>
+            <ObjectIntersectionOf>
+                <Class IRI="#Acquatico"/>
+                <Class IRI="#EssereVivente"/>
+            </ObjectIntersectionOf>
+        </ObjectSomeValuesFrom>
+        <ObjectIntersectionOf>
+            <Class IRI="#Invertebrato"/>
+            <Class IRI="#Molluschi"/>
+        </ObjectIntersectionOf>
+    </SubClassOf>
+    <SubClassOf>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#haComportamento"/>
+            <Class IRI="#Molluschi"/>
+        </ObjectSomeValuesFrom>
+        <Class IRI="#EssereVivente"/>
+    </SubClassOf>
+    <SubClassOf>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#haComportamento"/>
+            <ObjectIntersectionOf>
+                <Class IRI="#Acquatico"/>
+                <Class IRI="#EssereVivente"/>
+            </ObjectIntersectionOf>
+        </ObjectSomeValuesFrom>
+        <Class IRI="#Echinodermi"/>
+    </SubClassOf>
+    <SubClassOf>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#haParticolaritaFisica"/>
+            <ObjectSomeValuesFrom>
+                <ObjectProperty IRI="#caccia"/>
+                <ObjectIntersectionOf>
+                    <Class IRI="#Mammifero"/>
+                    <Class IRI="#Uccello"/>
+                </ObjectIntersectionOf>
+            </ObjectSomeValuesFrom>
+        </ObjectSomeValuesFrom>
+        <ObjectIntersectionOf>
+            <Class IRI="#Echinodermi"/>
+            <Class IRI="#Poriferi"/>
+        </ObjectIntersectionOf>
+    </SubClassOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#caccia"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#haCaratteristica"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi -->
+
