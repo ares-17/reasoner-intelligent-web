@@ -179,7 +179,7 @@ public class JTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testException() {
-        OWLSubClassOfAxiom query = of.subclassOf( of.clazz("A"), of.nothing());
+        OWLSubClassOfAxiom query = of.subclassOf(of.clazz("A"), of.nothing());
         reasoner.doQuery(query);
     }
 
