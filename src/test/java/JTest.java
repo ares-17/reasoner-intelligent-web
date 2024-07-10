@@ -111,6 +111,36 @@ public class JTest {
     }
 
     @Test
+    public void COACH_SUBCLASS_OF_ISCRITTO_A_PREMIER_LEAGUE() {
+        OWLClass classF = df.getOWLClass(IOR + "#Coach");
+        OWLClass classI = df.getOWLClass(IOR + "#PremierLeague");
+        OWLObjectProperty r3 = df.getOWLObjectProperty(IOR + "#iscrittoA");
+        OWLObjectSomeValuesFrom objectSomeValuesFromR3 = df.getOWLObjectSomeValuesFrom(r3, classI);
+        OWLSubClassOfAxiom query = df.getOWLSubClassOfAxiom(classF, objectSomeValuesFromR3);
+        assertFalse(reasoner.doQuery(query));
+    }
+
+    @Test
+    public void GIOCATORE_PANCHINA_SUBCLASS_OF_HA_UN_CONTRATTO() {
+        OWLClass classF = df.getOWLClass(IOR + "#GiocatorePanchina");
+        OWLClass classI = df.getOWLClass(IOR + "#Contratto");
+        OWLObjectProperty r3 = df.getOWLObjectProperty(IOR + "#haContratto");
+        OWLObjectSomeValuesFrom objectSomeValuesFromR3 = df.getOWLObjectSomeValuesFrom(r3, classI);
+        OWLSubClassOfAxiom query = df.getOWLSubClassOfAxiom(classF, objectSomeValuesFromR3);
+        assertTrue(reasoner.doQuery(query));
+    }
+
+    @Test
+    public void GIOCATORE_PANCHINA_SUBCLASS_OF_HA_UNA_SQUADRA_DIRIGENTE() {
+        OWLClass classF = df.getOWLClass(IOR + "#GiocatorePanchina");
+        OWLClass classI = df.getOWLClass(IOR + "#Dirigente");
+        OWLObjectProperty r3 = df.getOWLObjectProperty(IOR + "#haSquadra");
+        OWLObjectSomeValuesFrom objectSomeValuesFromR3 = df.getOWLObjectSomeValuesFrom(r3, classI);
+        OWLSubClassOfAxiom query = df.getOWLSubClassOfAxiom(classF, objectSomeValuesFromR3);
+        assertFalse(reasoner.doQuery(query));
+    }
+
+    @Test
     public void test5() {
         OWLSubClassOfAxiom query = df.getOWLSubClassOfAxiom(
                 df.getOWLObjectIntersectionOf(Stream.of(
@@ -245,18 +275,12 @@ public class JTest {
 
     @Test
     public void test14() {
-        OWLClass classF = df.getOWLClass(IOR + "#F");
-        OWLClass classI = df.getOWLClass(IOR + "#I");
-        OWLClass classL = df.getOWLClass(IOR + "#L");
-        OWLObjectProperty r3 = df.getOWLObjectProperty(IOR + "#r3");
-        OWLObjectProperty r4 = df.getOWLObjectProperty(IOR + "#r4");
-        OWLObjectSomeValuesFrom objectSomeValuesFrom4L = df.getOWLObjectSomeValuesFrom(r4, classL);
-        OWLObjectIntersectionOf intersectionOf = df.getOWLObjectIntersectionOf(classI, objectSomeValuesFrom4L);
-        OWLObjectSomeValuesFrom objectSomeValuesFromR3 = df.getOWLObjectSomeValuesFrom(r3, intersectionOf);
+        OWLClass classF = df.getOWLClass(IOR + "#GiocatorePanchina");
+        OWLClass classI = df.getOWLClass(IOR + "#Contratto");
+        OWLObjectProperty r3 = df.getOWLObjectProperty(IOR + "#haContratto");
+        OWLObjectSomeValuesFrom objectSomeValuesFromR3 = df.getOWLObjectSomeValuesFrom(r3, classI);
         OWLSubClassOfAxiom query = df.getOWLSubClassOfAxiom(classF, objectSomeValuesFromR3);
-        OWLObjectComplementOf complementOf = df.getOWLObjectComplementOf(query.getSuperClass());
-        OWLObjectIntersectionOf negIntersection = df.getOWLObjectIntersectionOf(query.getSubClass(), complementOf);
-        assertEquals(reasoner.doQuery(query), !hermitReasoner.isSatisfiable(negIntersection));
+        assertTrue(reasoner.doQuery(query));
     }
 
     @Test
