@@ -8,6 +8,6 @@ import java.io.File;
 public class Main {
     public static void main(String[] args) throws OWLOntologyCreationException {
         OWLOntologyManager man = OWLManager.createOWLOntologyManager();
-        OWLOntology o = man.loadOntologyFromOntologyDocument(new File("data/ONTOLOGY_TEST.owx"));
+        OWLOntology o = man.loadOntologyFromOntologyDocument(new File("data/FOOTBALL_ONTOLOGY.rdf"));
     }
 }

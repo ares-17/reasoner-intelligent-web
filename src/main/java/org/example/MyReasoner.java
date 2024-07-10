@@ -21,7 +21,7 @@ public class MyReasoner {
     private Map<OWLObjectPropertyExpression, Set<Pair<OWLClassExpression, OWLClassExpression>>> R = null;
 
     /**
-     * Sono inzializzati: <br>
+     * Sono inizializzati: <br>
      * - normalizedAxiomsSet con gli assiomi relativi alla tassonomia delle classi, escludendo quelli importati da ontologie esterne (Imports.EXCLUDED), <br>
      * - S e R come HashMap vuote
      **/
@@ -41,7 +41,7 @@ public class MyReasoner {
      *
      * @param query la query OWLSubClassOfAxiom su cui effettuare l'operazione. Deve specificare la sotto-classe e la super-classe.
      * @return true se la query è valida rispetto agli assiomi presenti, false altrimenti.
-     */
+     **/
     public boolean doQuery(final OWLSubClassOfAxiom query) {
         Set<OWLSubClassOfAxiom> mergedSubAxiomsSet = new HashSet<>();
 
@@ -64,7 +64,7 @@ public class MyReasoner {
     /**
      * Crea concetti finti (Fictitious) utili a dimostrare che subClass è sottoclasse di superClass
      * @return due assiomi: uno dimostra che fit0 è sottoclasse di subClass, l'altro che fit1 è superclasse di fit1
-     */
+     **/
     private Set<OWLAxiom> createFictitious(final OWLClassExpression subClass, final OWLClassExpression superClass) {
         Set<OWLAxiom> returnSet = new HashSet<>();
         OWLClass fit0 = this.df.getOWLClass(IRI.create("#FIT0"));
@@ -81,7 +81,7 @@ public class MyReasoner {
      * Applica a entrambe le classi di ciascun OWLSubClassOfAxiom dell'input la funzione initializeSingleMapping()
      * per memorizzare in this.S e this.R i concetti e relazioni associati.
      * Non apporta nessuna modifica sull'input
-     */
+     **/
     private void initializeMapping(final Set<OWLSubClassOfAxiom> normalizedAxSet) {
         for (OWLSubClassOfAxiom ax : normalizedAxSet) {
             OWLClassExpression subClass = ax.getSubClass();
@@ -98,7 +98,7 @@ public class MyReasoner {
      * Se l'espressione è un'esistenza su valori di oggetto, viene creata un'associazione tra la proprietà e un insieme di coppie di espressioni di classe e viene aggiunta al setS la classe o il singleton dell'esistenziale, insieme alla classe di massimo livello OWLThing, quindi viene inserita nella mappatura S.
      *
      * @param expression l'espressione di classe OWL da inizializzare.
-     */
+     **/
     private void initializeSingleMapping(final OWLClassExpression expression) {
         Set<OWLClassExpression> setS = new HashSet<>();
         if (expression.getClassExpressionType().equals(ClassExpressionType.OWL_CLASS) ||
@@ -132,7 +132,7 @@ public class MyReasoner {
      * Le regole di completamento applicate includono CR1, CR2, CR3 per le espressioni di classe e CR4, CR5, CR6 per le proprietà di oggetti.
      *
      * @param mergedSubClassAxioms l'insieme di assiomi di sottoclasse OWL su cui applicare le regole di completamento.
-     */
+     **/
     private void applyingCompletionRules(Set<OWLSubClassOfAxiom> mergedSubClassAxioms) {
         boolean repeatLoop = true;
         List<Boolean> checkCR = new LinkedList<>();
@@ -186,7 +186,7 @@ public class MyReasoner {
      * @param key L'espressione di classe C su cui applicare la regola di completamento.
      * @param mergedSubClassAxioms L'insieme di assiomi di sottoclasse su cui basare il completamento.
      * @return true se è stata aggiunta almeno una nuova espressione di classe a S(C), altrimenti false.
-     */
+     **/
     private boolean CR1(OWLClassExpression key, Set<OWLSubClassOfAxiom> mergedSubClassAxioms) {
         Set<OWLClassExpression> tempSet = new HashSet<>(this.S.get(key));
         boolean checkAdd, ret = false;
@@ -216,7 +216,7 @@ public class MyReasoner {
      * @param key L'espressione di classe C su cui applicare la regola di completamento.
      * @param mergedSubClassAxioms L'insieme di assiomi di sottoclasse su cui basare il completamento.
      * @return true se è stata aggiunta almeno una nuova espressione di classe a S(C), altrimenti false.
-     */
+     **/
     private boolean CR2(OWLClassExpression key, Set<OWLSubClassOfAxiom> mergedSubClassAxioms) {
         boolean checkAdd, ret = false;
         List<OWLClassExpression> listClass = new ArrayList<>(this.S.get(key));
@@ -248,7 +248,7 @@ public class MyReasoner {
      * @param key L'espressione di classe C su cui applicare la regola di completamento.
      * @param mergedSubClassAxioms L'insieme di assiomi di sottoclasse su cui basare il completamento.
      * @return true se è stata aggiunta almeno una nuova coppia (espressione di classe, filler) all'insieme R, altrimenti false.
-     */
+     **/
     private boolean CR3(OWLClassExpression key, Set<OWLSubClassOfAxiom> mergedSubClassAxioms) {
         boolean checkAdd, ret = false;
         Set<OWLClassExpression> tempSet = new HashSet<>(this.S.get(key));
@@ -283,7 +283,7 @@ public class MyReasoner {
      * @param key L'espressione di proprietà OWLObjectPropertyExpression su cui applicare la regola di completamento.
      * @param mergedSubClassAxioms L'insieme di assiomi di sottoclasse su cui basare il completamento.
      * @return true se è stata aggiunta almeno una nuova espressione di classe all'insieme S(C), altrimenti false.
-     */
+     **/
     private boolean CR4(OWLObjectPropertyExpression key, Set<OWLSubClassOfAxiom> mergedSubClassAxioms){
         Set<Pair<OWLClassExpression,OWLClassExpression>> setOfPair = this.R.get(key);
         boolean checkAdd, ret = false;
@@ -292,7 +292,7 @@ public class MyReasoner {
             OWLClassExpression rightOfPair = pair.getValue(); //Elemento destro del Pair (D)
             for(OWLClassExpression expression : this.S.get(rightOfPair)){ //Ciclo sul Set di S(D) e ottengo expression = D'
                 for(OWLSubClassOfAxiom subClassOfAxiom : mergedSubClassAxioms){ //Ciclo sugli assiomi di sussunzione normalizzati
-                    OWLClassExpression leftOfSub = subClassOfAxiom.getSubClass(); //Prendo lato sinistro della sussnzione
+                    OWLClassExpression leftOfSub = subClassOfAxiom.getSubClass(); //Prendo lato sinistro della sussunzione
                     OWLClassExpression superOfSub = subClassOfAxiom.getSuperClass(); //Prendo lato destro della sussunzione (E)
                     if(leftOfSub.getClassExpressionType().equals(ClassExpressionType.OBJECT_SOME_VALUES_FROM)){ //Verifico che lato sinistro sia esiste(r.K)
                         OWLObjectSomeValuesFrom objectSomeValuesFrom = (OWLObjectSomeValuesFrom) leftOfSub;
@@ -319,7 +319,7 @@ public class MyReasoner {
      *
      * @param key L'espressione di proprietà OWLObjectPropertyExpression su cui applicare la regola di completamento.
      * @return true se è stata aggiunta almeno una nuova espressione di classe Bottom all'insieme S(C), altrimenti false.
-     */
+     **/
     private boolean CR5(OWLObjectPropertyExpression key){
         Set<Pair<OWLClassExpression,OWLClassExpression>> setOfPair = this.R.get(key);
         boolean checkAdd, ret = false;
@@ -346,7 +346,7 @@ public class MyReasoner {
      * @param key2 L'espressione di classe OWLClassExpression da cui aggiungere le espressioni di classe all'insieme S(key1).
      * @param graph Il grafo diretto utilizzato per verificare l'esistenza di un percorso tra key1 e key2.
      * @return true se sono state aggiunte nuove espressioni di classe all'insieme S(key1), altrimenti false.
-     */
+     **/
     private boolean CR6(OWLClassExpression key1, OWLClassExpression key2, DefaultDirectedGraph<OWLClassExpression, DefaultEdge> graph){
         if(!key1.equals(key2) && !key1.isOWLNothing()){
             Set<OWLClassExpression> intersectionSetKey1AndKey2 = new HashSet<>(this.S.get(key1));
@@ -368,7 +368,7 @@ public class MyReasoner {
 
     /**
      * Viene definito un grafo diretto con gli elementi degli insiemi this.S e this.R
-     */
+     **/
     private DefaultDirectedGraph<OWLClassExpression, DefaultEdge> generateGraph(){
         DefaultDirectedGraph<OWLClassExpression, DefaultEdge> g = new DefaultDirectedGraph<>(DefaultEdge.class);
         for(OWLClassExpression expression : this.S.keySet()){
@@ -393,7 +393,7 @@ public class MyReasoner {
      *
      * @param expression L'espressione di classe da controllare per la presenza di "bottom".
      * @throws IllegalArgumentException Se viene trovato "bottom" in una posizione non consentita.
-     */
+     **/
     private void checkBottom(final OWLClassExpression expression) {
         Set<OWLClassExpression> set = expression.getNestedClassExpressions();
         for (OWLClassExpression ex : set) {
@@ -408,7 +408,7 @@ public class MyReasoner {
 
     /**
      * Applica checkBottom a subClass e anche a superClass se non è di tipo ClassExpressionType.OWL_CLASS
-     */
+     **/
     private void subAndSuperCheckBottom(OWLClassExpression subClass, OWLClassExpression superClass) {
         checkBottom(subClass);
         if (!superClass.getClassExpressionType().equals(ClassExpressionType.OWL_CLASS)) {
@@ -426,7 +426,7 @@ public class MyReasoner {
      *
      * @param subClassOfAxioms L'insieme di assiomi di sussunzione da normalizzare.
      * @return Un insieme di assiomi di sussunzione normalizzati.
-     */
+     **/
     private Set<OWLSubClassOfAxiom> normalization(final Set<OWLAxiom> subClassOfAxioms) {
         Pair<Set<OWLSubClassOfAxiom>, OWLClassExpression> leftPair;
         Pair<Set<OWLSubClassOfAxiom>, OWLClassExpression> rightPair;
@@ -468,7 +468,7 @@ public class MyReasoner {
      * come parametro.
      * @param subClass L'espressione di classe di sottoclasse da normalizzare.
      * @return Una coppia contenente un insieme di assiomi di sottoclasse normalizzati e l'espressione di classe normalizzata.
-     */
+     **/
     private Pair<Set<OWLSubClassOfAxiom>, OWLClassExpression> subClassNormalization(OWLClassExpression subClass) {
         Set<OWLSubClassOfAxiom> set = new HashSet<>();
         ClassExpressionType typeSubClass = subClass.getClassExpressionType();
@@ -497,7 +497,7 @@ public class MyReasoner {
      * come parametro.
      * @param superClass L'espressione di classe di sottoclasse da normalizzare.
      * @return Una coppia contenente un insieme di assiomi di sottoclasse normalizzati e l'espressione di classe normalizzata.
-     */
+     **/
     private Pair<Set<OWLSubClassOfAxiom>, OWLClassExpression> superClassNormalization(OWLClassExpression superClass) {
         Set<OWLSubClassOfAxiom> set = new HashSet<>();
         Pair<Set<OWLSubClassOfAxiom>, OWLClassExpression> tempPair;
@@ -541,7 +541,7 @@ public class MyReasoner {
      *
      * @param intersectionOf L'intersezione di espressioni di classe da normalizzare.
      * @return Una coppia contenente un insieme di assiomi di sottoclasse normalizzati e l'intersezione normalizzata.
-     */
+     **/
     private Pair<Set<OWLSubClassOfAxiom>, OWLClassExpression> normalizeIntersectionOf(OWLObjectIntersectionOf intersectionOf) {
         ArrayList<OWLClassExpression> arrayListOfExpressions = new ArrayList<>(intersectionOf.getOperandsAsList());
         int size = arrayListOfExpressions.size();
@@ -613,7 +613,7 @@ public class MyReasoner {
      * @param someValuesFrom La restrizione esistenziale da normalizzare.
      * @return Una coppia contenente un insieme di assiomi di sottoclasse normalizzati e la restrizione esistenziale
      *         normalizzata.
-     */
+     **/
     //TORNA ESISTENZIALE DI UNA CLASSE (Exist(r.C))
     private Pair<Set<OWLSubClassOfAxiom>, OWLClassExpression> normalizeObjectSomeValueFrom(OWLObjectSomeValuesFrom someValuesFrom) {
         OWLObjectPropertyExpression relation = someValuesFrom.getProperty();
@@ -671,7 +671,7 @@ public class MyReasoner {
      * @param objectSomeValuesFrom La restrizione esistenziale da normalizzare come classe.
      * @return Una coppia contenente un insieme di assiomi di sottoclasse generati durante la normalizzazione e
      *         l'espressione esistenziale ridotta a classe.
-     */
+     **/
     private Pair<Set<OWLSubClassOfAxiom>, OWLClassExpression> normalizeSomeValuesFromAsClass(OWLObjectSomeValuesFrom objectSomeValuesFrom) {
         Pair<Set<OWLSubClassOfAxiom>, OWLClassExpression> tempPair = null;
 
@@ -696,7 +696,7 @@ public class MyReasoner {
      * @param expression L'espressione complessa da ridurre a una singola classe.
      * @return Una coppia contenente un insieme di assiomi di sottoclasse generati durante la normalizzazione e
      *         l'espressione ridotta a una singola classe.
-     */
+     **/
     private Pair<Set<OWLSubClassOfAxiom>, OWLClassExpression> reduceToClass(OWLClassExpression expression) {
         OWLClass tempClass = createTempClass();
         ArrayList<OWLClassExpression> arrayListOfExpressions;
@@ -725,7 +725,7 @@ public class MyReasoner {
      * @param objectSomeValuesFrom La restrizione esistenziale (some values from) da normalizzare.
      * @param tempClass La classe temporanea utilizzata per la normalizzazione.
      * @return Un insieme di assiomi di sottoclasse generati durante la normalizzazione.
-     */
+     **/
     private Set<OWLSubClassOfAxiom> normalizeSingleObjectSomeValuesFrom(OWLObjectSomeValuesFrom objectSomeValuesFrom, OWLClass tempClass) {
         Set<OWLSubClassOfAxiom> returnSet = new HashSet<>();
         OWLSubClassOfAxiom sub1 = this.df.getOWLSubClassOfAxiom(tempClass, objectSomeValuesFrom);
@@ -748,7 +748,7 @@ public class MyReasoner {
      * @param curr L'espressione di classe corrente nell'intersezione.
      * @param tempClass La classe temporanea utilizzata per la normalizzazione.
      * @return Un insieme di assiomi di sottoclasse generati durante la normalizzazione.
-     */
+     **/
     private Set<OWLSubClassOfAxiom> normalizeSingleIntersectionOf(OWLClassExpression prev,
                                                                   OWLClassExpression curr, OWLClass tempClass) {
         Set<OWLSubClassOfAxiom> returnSet = new HashSet<>();
