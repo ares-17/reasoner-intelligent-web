@@ -2,16 +2,14 @@ package org.example;
 
 import org.semanticweb.owlapi.model.*;
 
-import java.util.stream.Stream;
-
 public class OWLFactory {
 
     private final IRI IOR;
     private final OWLDataFactory df;
 
-    public OWLFactory(IRI iri, OWLDataFactory df){
-        IOR = iri;
-        this.df = df;
+    public OWLFactory(OWLOntologyManager man, OWLOntology o) {
+        this.df = man.getOWLDataFactory();
+        this.IOR = o.getOntologyID().getOntologyIRI().orElseThrow(IllegalArgumentException::new);
     }
 
     public OWLClass clazz(String name){
@@ -32,5 +30,13 @@ public class OWLFactory {
 
     public OWLClass nothing(){
         return df.getOWLNothing();
+    }
+
+    public OWLObjectPropertyExpression property(String name){
+        return this.df.getOWLObjectProperty(this.IOR + "#" + name);
+    }
+
+    public OWLObjectSomeValuesFrom someValuesFrom(OWLObjectPropertyExpression property, OWLClassExpression clazz){
+        return this.df.getOWLObjectSomeValuesFrom(property, clazz);
     }
 }
