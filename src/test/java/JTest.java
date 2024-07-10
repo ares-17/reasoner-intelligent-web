@@ -43,7 +43,7 @@ public class JTest {
      * </pre>
      */
     @Test
-    public void areGiocatoreTitolareAndGiocatorePanchinaSubclassOfGiocatore() {
+    public void GIOCATORETITOLARE_AND_GIOCATOREPANCHINA_SUBCLASS_OF_GIOCATORE() {
         OWLSubClassOfAxiom query = of.subclassOf(
                 of.intersectionOf(
                         of.clazz("GiocatoreTitolare"),
@@ -61,7 +61,7 @@ public class JTest {
      * </pre>
      */
     @Test
-    public void areGiocatoreTitolareAndGiocatorePanchinaSubclassOfTop() {
+    public void GIOCATORETITOLARE_AND_GIOCATOREPANCHINA_SUBCLASS_OF_TOP() {
         OWLSubClassOfAxiom query = of.subclassOf(
                 of.intersectionOf(
                         of.clazz("GiocatoreTitolare"),
@@ -79,7 +79,7 @@ public class JTest {
      * </pre>
      */
     @Test
-    public void isTopSubclassOfGiocatoreTitolareAndGiocatorePanchina() {
+    public void TOP_SUBCLASS_OF_GIOCATORETITOLARE_AND_GIOCATOREPANCHINA() {
         OWLSubClassOfAxiom query = of.subclassOf(
                 of.thing(),
                 of.intersectionOf(
@@ -98,7 +98,7 @@ public class JTest {
      * </pre>
      */
     @Test
-    public void arePreparatoreAndMedicoAndDirigenteAndAdultoSubclassOfPersona() {
+    public void PREPARATORE_AND_MEDICO_AND_DIRIGENTE_AND_ADULTO_SUBCLASS_OF_PERSONA() {
         OWLSubClassOfAxiom query = of.subclassOf(
                 of.intersectionOf(
                         of.clazz("Preparatore"),
