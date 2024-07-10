@@ -10,6 +10,8 @@ import org.semanticweb.owlapi.model.*;
 import org.semanticweb.owlapi.model.parameters.Imports;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class MyReasoner {
 
@@ -35,6 +37,36 @@ public class MyReasoner {
         this.R = new HashMap<>();
     }
 
+    @SafeVarargs
+    private final <T extends  OWLClassExpression> Set<T> createSet(T... items){
+        return Stream.of(items).collect(Collectors.toSet());
+    }
+
+    private boolean hasAnyTrue(boolean... items){
+        for(boolean item: items){
+            if(item){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private <T extends OWLClassExpression> boolean isSomeValueFrom(T expression){
+        return expression.getClassExpressionType().equals(ClassExpressionType.OBJECT_SOME_VALUES_FROM);
+    }
+
+    private <T extends OWLClassExpression> boolean isIntersection(T expression){
+        return expression.getClassExpressionType().equals(ClassExpressionType.OBJECT_INTERSECTION_OF);
+    }
+
+    private <T extends OWLClassExpression> boolean isClass(T expression){
+        return expression.getClassExpressionType().equals(ClassExpressionType.OWL_CLASS);
+    }
+
+    private <T extends OWLClassExpression> boolean isIndividual(T expression){
+        return expression.getClassExpressionType().equals(ClassExpressionType.OBJECT_ONE_OF);
+    }
+
     /**
      * Verifica la validità di una query OWLSubClassOfAxiom rispetto agli assiomi già presenti nella base di conoscenza.
      * Il valore ritornato corrisponde alla presenza di un'assioma che indica che FIT0 è una sottoclasse di FIT1.
@@ -45,20 +77,22 @@ public class MyReasoner {
     public boolean doQuery(final OWLSubClassOfAxiom query) {
         Set<OWLSubClassOfAxiom> mergedSubAxiomsSet = new HashSet<>();
 
-        OWLClassExpression subClass = query.getSubClass();
-        OWLClassExpression superClass = query.getSuperClass();
-        Set<OWLAxiom> fictitiousSet = createFictitious(subClass, superClass);
-        for(OWLAxiom ax : fictitiousSet){
-            OWLSubClassOfAxiom cast = (OWLSubClassOfAxiom) ax;
-            OWLClassExpression subClass2 = cast.getSubClass();
-            OWLClassExpression superClass2 = cast.getSuperClass();
-            subAndSuperCheckBottom(subClass2, superClass2);
-        }
+        Set<OWLAxiom> fictitiousSet = createFictitious(query.getSubClass(), query.getSuperClass());
+        fictitiousSet.stream()
+                .map(ax -> (OWLSubClassOfAxiom) ax)
+                .forEach(cast -> {
+                    OWLClassExpression subClass2 = cast.getSubClass();
+                    OWLClassExpression superClass2 = cast.getSuperClass();
+                    subAndSuperCheckBottom(subClass2, superClass2);
+                });
+
         mergedSubAxiomsSet.addAll(this.normalizedAxiomsSet);
         mergedSubAxiomsSet.addAll(normalization(fictitiousSet));
         initializeMapping(mergedSubAxiomsSet);
         applyingCompletionRules(mergedSubAxiomsSet);
-        return this.S.get(this.df.getOWLClass("#FIT0")).contains(this.df.getOWLClass("#FIT1"));
+
+        return this.S.get(this.df.getOWLClass("#FIT0"))
+                .contains(this.df.getOWLClass("#FIT1"));
     }
 
     /**
@@ -66,14 +100,13 @@ public class MyReasoner {
      * @return due assiomi: uno dimostra che fit0 è sottoclasse di subClass, l'altro che fit1 è superclasse di fit1
      **/
     private Set<OWLAxiom> createFictitious(final OWLClassExpression subClass, final OWLClassExpression superClass) {
-        Set<OWLAxiom> returnSet = new HashSet<>();
         OWLClass fit0 = this.df.getOWLClass(IRI.create("#FIT0"));
         OWLClass fit1 = this.df.getOWLClass(IRI.create("#FIT1"));
-        OWLSubClassOfAxiom sub1 = this.df.getOWLSubClassOfAxiom(fit0, subClass);
-        OWLSubClassOfAxiom sub2 = this.df.getOWLSubClassOfAxiom(superClass, fit1);
-        returnSet.add(sub1);
-        returnSet.add(sub2);
-        return returnSet;
+
+        return Stream.of(
+                this.df.getOWLSubClassOfAxiom(fit0, subClass),
+                this.df.getOWLSubClassOfAxiom(superClass, fit1)
+        ).collect(Collectors.toSet());
     }
 
 
@@ -100,29 +133,23 @@ public class MyReasoner {
      * @param expression l'espressione di classe OWL da inizializzare.
      **/
     private void initializeSingleMapping(final OWLClassExpression expression) {
-        Set<OWLClassExpression> setS = new HashSet<>();
-        if (expression.getClassExpressionType().equals(ClassExpressionType.OWL_CLASS) ||
-                expression.getClassExpressionType().equals(ClassExpressionType.OBJECT_ONE_OF)) {
-            setS.add(expression);
-            setS.add(this.df.getOWLThing());
-            S.put(expression, setS);
-        } else if (expression.getClassExpressionType().equals(ClassExpressionType.OBJECT_INTERSECTION_OF)) {
-            OWLObjectIntersectionOf intersectionOf = (OWLObjectIntersectionOf) expression;
-            ArrayList<OWLClassExpression> twoClasses = new ArrayList<>(intersectionOf.getOperandsAsList());
-            setS.add(twoClasses.get(0));
-            setS.add(this.df.getOWLThing());
-            S.put(twoClasses.get(0), setS);
-            setS = new HashSet<>();
-            setS.add(twoClasses.get(1));
-            setS.add(this.df.getOWLThing());
-            S.put(twoClasses.get(1), setS);
-        } else if (expression.getClassExpressionType().equals(ClassExpressionType.OBJECT_SOME_VALUES_FROM)) {
-            Set<Pair<OWLClassExpression, OWLClassExpression>> setR = new HashSet<>();
-            OWLObjectSomeValuesFrom cast = (OWLObjectSomeValuesFrom) expression;
-            R.put(cast.getProperty(), setR);
-            setS.add(cast.getFiller()); //Aggiungo al setS la classe (o singleton) dell'esistenziale
-            setS.add(this.df.getOWLThing()); //Aggiungo il TOP
-            S.put(cast.getFiller(), setS); //Inserisco nella mappa S la classe (o singleton) dell'esistenziale e il setS creato per essa
+        switch (expression.getClassExpressionType()) {
+            case OWL_CLASS:
+            case OBJECT_ONE_OF:
+                S.put(expression, createSet(expression, df.getOWLThing()));
+                break;
+            case OBJECT_INTERSECTION_OF:
+                OWLObjectIntersectionOf intersectionOf = (OWLObjectIntersectionOf) expression;
+                ArrayList<OWLClassExpression> twoClasses = new ArrayList<>(intersectionOf.getOperandsAsList());
+                S.put(twoClasses.get(0), createSet(twoClasses.get(0), this.df.getOWLThing()));
+                S.put(twoClasses.get(1), createSet(twoClasses.get(1), this.df.getOWLThing()));
+                break;
+            case OBJECT_SOME_VALUES_FROM:
+                OWLObjectSomeValuesFrom cast = (OWLObjectSomeValuesFrom) expression;
+                R.put(cast.getProperty(), new HashSet<>());
+                // Inserisco nella mappa S la classe (o singleton) dell'esistenziale e il setS creato per essa
+                S.put(cast.getFiller(), createSet(cast.getFiller(), this.df.getOWLThing()));
+                break;
         }
     }
 
@@ -134,48 +161,35 @@ public class MyReasoner {
      * @param mergedSubClassAxioms l'insieme di assiomi di sottoclasse OWL su cui applicare le regole di completamento.
      **/
     private void applyingCompletionRules(Set<OWLSubClassOfAxiom> mergedSubClassAxioms) {
-        boolean repeatLoop = true;
-        List<Boolean> checkCR = new LinkedList<>();
-        while (repeatLoop) {
-            repeatLoop = false;
-            for (OWLClassExpression key : this.S.keySet()) {
-                checkCR.add(CR1(key, mergedSubClassAxioms));
-                checkCR.add(CR2(key, mergedSubClassAxioms));
-                checkCR.add(CR3(key, mergedSubClassAxioms));
+        boolean repeatLoop;
 
-                for (Boolean b : checkCR) {
-                    if (b) {
-                        repeatLoop = true;
-                        break;
-                    }
-                }
-                checkCR.clear();
+        do {
+            boolean anyRuleChanged = false;
+
+            for (OWLClassExpression key : this.S.keySet()) {
+                anyRuleChanged |= hasAnyTrue(
+                        CR1(key, mergedSubClassAxioms),
+                        CR2(key, mergedSubClassAxioms),
+                        CR3(key, mergedSubClassAxioms)
+                );
             }
-            for(OWLObjectPropertyExpression key : this.R.keySet()){
-                checkCR.add(CR4(key, mergedSubClassAxioms));
-                checkCR.add(CR5(key));
-                for (Boolean b : checkCR) {
-                    if (b) {
-                        repeatLoop = true;
-                        break;
-                    }
-                }
-                checkCR.clear();
+
+            for (OWLObjectPropertyExpression key : this.R.keySet()) {
+                anyRuleChanged |= hasAnyTrue(
+                        CR4(key, mergedSubClassAxioms),
+                        CR5(key)
+                );
             }
+
             DefaultDirectedGraph<OWLClassExpression, DefaultEdge> graphForCR6 = generateGraph();
-            for(OWLClassExpression key1 : this.S.keySet()){
-                for(OWLClassExpression key2 : this.S.keySet()){
-                    checkCR.add(CR6(key1,key2,graphForCR6));
-                    for (Boolean b : checkCR) {
-                        if (b) {
-                            repeatLoop = true;
-                            break;
-                        }
-                    }
-                    checkCR.clear();
+            for (OWLClassExpression key1 : this.S.keySet()) {
+                for (OWLClassExpression key2 : this.S.keySet()) {
+                    anyRuleChanged |= CR6(key1, key2, graphForCR6);
                 }
             }
-        }
+
+            repeatLoop = anyRuleChanged;
+        } while (repeatLoop);
     }
 
     /**
@@ -189,19 +203,16 @@ public class MyReasoner {
      **/
     private boolean CR1(OWLClassExpression key, Set<OWLSubClassOfAxiom> mergedSubClassAxioms) {
         Set<OWLClassExpression> tempSet = new HashSet<>(this.S.get(key));
-        boolean checkAdd, ret = false;
+        boolean ret = false;
+
         for (OWLClassExpression setElementS : tempSet) { //Ciclo su ogni C' appartenente ad S(C)
             for (OWLSubClassOfAxiom sub : mergedSubClassAxioms) { //Ciclo su ogni sottoclasse della base di conoscenza
-                OWLClassExpression leftOfSub = sub.getSubClass();
-                OWLClassExpression superOfSub = sub.getSuperClass();
-                if (!leftOfSub.getClassExpressionType().equals(ClassExpressionType.OBJECT_SOME_VALUES_FROM)) {
-                    if (leftOfSub.equals(setElementS)) {
-                        if (!superOfSub.getClassExpressionType().equals(ClassExpressionType.OBJECT_SOME_VALUES_FROM)) {
-                            checkAdd = this.S.get(key).add(superOfSub);
-                            if (checkAdd)
-                                ret = true;
-                        }
-                    }
+                OWLClassExpression subClass = sub.getSubClass();
+                OWLClassExpression superClass = sub.getSuperClass();
+                boolean subIsCurrent = subClass.equals(setElementS);
+
+                if (!isSomeValueFrom(subClass) && subIsCurrent && !isSomeValueFrom(superClass)) {
+                    ret = this.S.get(key).add(superClass);
                 }
             }
         }
