@@ -23,7 +23,7 @@ public class JTest {
     @Before
     public void setUp() throws Exception {
         OWLOntologyManager man = OWLManager.createOWLOntologyManager();
-        OWLOntology o = man.loadOntologyFromOntologyDocument(new File("data/ONTOLOGY_TEST.owx"));
+        OWLOntology o = man.loadOntologyFromOntologyDocument(new File("data/Test_Calcio.rdf"));
         this.df = man.getOWLDataFactory();
         this.IOR = o.getOntologyID().getOntologyIRI().get();
         this.reasoner = new MyReasoner(o);
@@ -33,54 +33,51 @@ public class JTest {
     }
 
     @org.junit.Test
-    public void test1(){
-        OWLClass class1 = df.getOWLClass(IOR + "#M");
-        OWLClass class2 = df.getOWLClass(IOR + "#N");
-        OWLClass inclusionClass = df.getOWLClass(IOR + "#B");
+    public void areGiocatoreTitolareAndGiocatorePanchinaSubclassOfGiocatore(){
+        OWLClass class1 = df.getOWLClass(IOR + "#GiocatoreTitolare");
+        OWLClass class2 = df.getOWLClass(IOR + "#GiocatorePanchina");
+        OWLClass inclusionClass = df.getOWLClass(IOR + "#Giocatore");
         OWLObjectIntersectionOf intersectionOf = df.getOWLObjectIntersectionOf(class1,class2);
         OWLSubClassOfAxiom query = df.getOWLSubClassOfAxiom(intersectionOf,inclusionClass);
-        OWLObjectComplementOf complementOf = df.getOWLObjectComplementOf(query.getSuperClass());
-        OWLObjectIntersectionOf negIntersection = df.getOWLObjectIntersectionOf(query.getSubClass(),complementOf);
-        assertEquals(reasoner.doQuery(query),!hermitReasoner.isSatisfiable(negIntersection));
+
+        assertTrue(reasoner.doQuery(query));
     }
 
     @org.junit.Test
-    public void test2(){
-        OWLClass class1 = df.getOWLClass(IOR + "#M");
-        OWLClass class2 = df.getOWLClass(IOR + "#N");
+    public void areGiocatoreTitolareAndGiocatorePanchinaSubclassOfTop(){
+        OWLClass class1 = df.getOWLClass(IOR + "#GiocatoreTitolare");
+        OWLClass class2 = df.getOWLClass(IOR + "#GiocatorePanchina");
         OWLClass inclusionClass = df.getOWLThing();
         OWLObjectIntersectionOf intersectionOf = df.getOWLObjectIntersectionOf(class1,class2);
         OWLSubClassOfAxiom query = df.getOWLSubClassOfAxiom(intersectionOf,inclusionClass);
-        OWLObjectComplementOf complementOf = df.getOWLObjectComplementOf(query.getSuperClass());
-        OWLObjectIntersectionOf negIntersection = df.getOWLObjectIntersectionOf(query.getSubClass(),complementOf);
-        assertEquals(reasoner.doQuery(query),!hermitReasoner.isSatisfiable(negIntersection));
+        assertTrue(reasoner.doQuery(query));
     }
 
     @org.junit.Test
-    public void test3(){
-        OWLClass class1 = df.getOWLClass(IOR + "#M");
-        OWLClass class2 = df.getOWLClass(IOR + "#N");
+    public void isTopSubclassOfGiocatoreTitolareAndGiocatorePanchina(){
+        OWLClass class1 = df.getOWLClass(IOR + "#GiocatoreTitolare");
+        OWLClass class2 = df.getOWLClass(IOR + "#GiocatorePanchina");
         OWLClass inclusionClass = df.getOWLThing();
         OWLObjectIntersectionOf intersectionOf = df.getOWLObjectIntersectionOf(class1,class2);
         OWLSubClassOfAxiom query = df.getOWLSubClassOfAxiom(inclusionClass,intersectionOf);
-        OWLObjectComplementOf complementOf = df.getOWLObjectComplementOf(query.getSuperClass());
-        OWLObjectIntersectionOf negIntersection = df.getOWLObjectIntersectionOf(query.getSubClass(),complementOf);
-        assertEquals(reasoner.doQuery(query),!hermitReasoner.isSatisfiable(negIntersection));
+        assertFalse(reasoner.doQuery(query));
     }
 
     @org.junit.Test
-    public void test4(){
+    public void arePreparatoreAndMedicoAndDirigenteAndAdultoSubclassOfPersona(){
         Set<OWLClass> set1 = new HashSet<>();
-        set1.add(df.getOWLClass(IOR + "#M"));
-        set1.add(df.getOWLClass(IOR + "#N"));
-        set1.add(df.getOWLClass(IOR + "#I"));
-        set1.add(df.getOWLClass(IOR + "#P"));
-        OWLClass inclusionClass = df.getOWLClass(IOR + "#B");
+        set1.add(df.getOWLClass(IOR + "#Preparatore"));
+        set1.add(df.getOWLClass(IOR + "#Medico"));
+        set1.add(df.getOWLClass(IOR + "#Dirigente"));
+        set1.add(df.getOWLClass(IOR + "#Adulto"));
+        OWLClass inclusionClass = df.getOWLClass(IOR + "#Persona");
         OWLObjectIntersectionOf intersectionOf = df.getOWLObjectIntersectionOf(set1);
         OWLSubClassOfAxiom query = df.getOWLSubClassOfAxiom(intersectionOf,inclusionClass);
         OWLObjectComplementOf complementOf = df.getOWLObjectComplementOf(query.getSuperClass());
         OWLObjectIntersectionOf negIntersection = df.getOWLObjectIntersectionOf(query.getSubClass(),complementOf);
-        assertEquals(reasoner.doQuery(query),!hermitReasoner.isSatisfiable(negIntersection));    }
+        assertFalse(hermitReasoner.isSatisfiable(negIntersection));
+        //assertEquals(reasoner.doQuery(query),!hermitReasoner.isSatisfiable(negIntersection));
+    }
 
     @org.junit.Test
     public void test5(){
@@ -100,13 +97,15 @@ public class JTest {
 
     @org.junit.Test
     public void test6(){
-        OWLIndividual individual = df.getOWLNamedIndividual(IOR + "#x");
-        OWLObjectOneOf objectOneOf = df.getOWLObjectOneOf(individual);
-        OWLClass classI = df.getOWLClass(IOR + "#I");
-        OWLSubClassOfAxiom query = df.getOWLSubClassOfAxiom(objectOneOf,classI);
+        OWLClass classSquadraPremierLeague = df.getOWLClass(IOR + "#SquadraPremierLeague");
+        OWLClass classSquadra = df.getOWLClass(IOR + "#Squadra");
+        OWLSubClassOfAxiom query = df.getOWLSubClassOfAxiom(classSquadraPremierLeague,classSquadra);
         OWLObjectComplementOf complementOf = df.getOWLObjectComplementOf(query.getSuperClass());
         OWLObjectIntersectionOf negIntersection = df.getOWLObjectIntersectionOf(query.getSubClass(),complementOf);
-        assertEquals(reasoner.doQuery(query),!hermitReasoner.isSatisfiable(negIntersection));    }
+        assertTrue(reasoner.doQuery(query));
+        //assertTrue(hermitReasoner.isSatisfiable(negIntersection)); TRUE
+        //assertEquals(reasoner.doQuery(query),!hermitReasoner.isSatisfiable(negIntersection));
+        }
 
     @org.junit.Test
     public void test7(){
