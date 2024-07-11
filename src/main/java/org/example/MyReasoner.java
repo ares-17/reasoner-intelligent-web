@@ -67,7 +67,7 @@ public class MyReasoner {
 
     /**
      * Verifica la validità di una query OWLSubClassOfAxiom rispetto agli assiomi già presenti nella base di conoscenza.
-     * Il valore ritornato corrisponde alla presenza di un'assioma che indica che FIT0 è una sottoclasse di FIT1.
+     * Il valore ritornato corrisponde alla presenza di un'assioma che indica che X è una sottoclasse di Y.
      *
      * @param query la query OWLSubClassOfAxiom su cui effettuare l'operazione. Deve specificare la sotto-classe e la super-classe.
      * @return true se la query è valida rispetto agli assiomi presenti, false altrimenti.
@@ -89,21 +89,21 @@ public class MyReasoner {
         initializeMapping(mergedSubAxiomsSet);
         applyingCompletionRules(mergedSubAxiomsSet);
 
-        return this.S.get(this.df.getOWLClass("#FIT0"))
-                .contains(this.df.getOWLClass("#FIT1"));
+        return this.S.get(this.df.getOWLClass("#X"))
+                .contains(this.df.getOWLClass("#Y"));
     }
 
     /**
      * Crea concetti finti (Fictitious) utili a dimostrare che subClass è sottoclasse di superClass
-     * @return due assiomi: uno dimostra che fit0 è sottoclasse di subClass, l'altro che fit1 è superclasse di fit1
+     * @return due assiomi: uno dimostra che x è sottoclasse di subClass, l'altro che y è superclasse di y
      **/
     private Set<OWLAxiom> createFictitious(final OWLClassExpression subClass, final OWLClassExpression superClass) {
-        OWLClass fit0 = this.df.getOWLClass(IRI.create("#FIT0"));
-        OWLClass fit1 = this.df.getOWLClass(IRI.create("#FIT1"));
+        OWLClass x = this.df.getOWLClass(IRI.create("#X"));
+        OWLClass y = this.df.getOWLClass(IRI.create("#Y"));
 
         return Stream.of(
-                this.df.getOWLSubClassOfAxiom(fit0, subClass),
-                this.df.getOWLSubClassOfAxiom(superClass, fit1)
+                this.df.getOWLSubClassOfAxiom(x, subClass),
+                this.df.getOWLSubClassOfAxiom(superClass, y)
         ).collect(Collectors.toSet());
     }
 
