@@ -18,7 +18,7 @@ public class JTest {
     @Before
     public void setUp() throws Exception {
         OWLOntologyManager man = OWLManager.createOWLOntologyManager();
-        OWLOntology o = man.loadOntologyFromOntologyDocument(new File("data/FOOTBALL_ONTOLOGY.rdf"));
+        OWLOntology o = man.loadOntologyFromOntologyDocument(new File("ontology/FOOTBALL_ONTOLOGY.rdf"));
         this.of = new OWLFactory(man, o);
         this.reasoner = new MyReasoner(o);
     }
