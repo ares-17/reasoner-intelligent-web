@@ -177,6 +177,19 @@ public class JTest {
         assertTrue(reasoner.doQuery(query));
     }
 
+    @Test
+    public void INDIVIDUAL(){
+        OWLSubClassOfAxiom query = of.subclassOf(
+                of.clazz("GiocatoreTitolare"),
+                of.someValuesFrom(
+                        of.property("trasferta"),
+                        of.oneOf(of.individual("liverpool"))
+                )
+        );
+
+        assertTrue(reasoner.doQuery(query));
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void testException() {
         OWLSubClassOfAxiom query = of.subclassOf(of.clazz("A"), of.nothing());
