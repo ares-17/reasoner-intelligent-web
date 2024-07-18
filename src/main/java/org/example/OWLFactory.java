@@ -12,6 +12,14 @@ public class OWLFactory {
         this.IOR = o.getOntologyID().getOntologyIRI().orElseThrow(IllegalArgumentException::new);
     }
 
+    public OWLNamedIndividual individual(String name){
+        return this.df.getOWLNamedIndividual(this.IOR + "#" + name);
+    }
+
+    public OWLObjectOneOf oneOf(OWLIndividual ...individual){
+        return this.df.getOWLObjectOneOf(individual);
+    }
+
     public OWLClass clazz(String name){
         return this.df.getOWLClass(this.IOR + "#" + name);
     }
