@@ -178,7 +178,7 @@ public class JTest {
     }
 
     @Test
-    public void INDIVIDUAL(){
+    public void GIOCATORE_TITOLARE_SUBCLASS_OF_TRASFERTA_LIVERPOOL(){
         OWLSubClassOfAxiom query = of.subclassOf(
                 of.clazz("GiocatoreTitolare"),
                 of.someValuesFrom(
